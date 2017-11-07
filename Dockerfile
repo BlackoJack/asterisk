@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:edge
 MAINTAINER Raenko Ivan <admin@sysadminsk.ru>
 
 ENV LANG ru_RU.utf8
