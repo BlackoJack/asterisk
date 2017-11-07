@@ -6,8 +6,9 @@ ENV LC_ALL ru_RU.utf8
 ENV LANGUAGE ru_RU.utf8
 ENV TZ Asia/Novosibirsk
 
-RUN apk add --update psqlodbc mysql-connector-odbc tzdata asterisk asterisk-alsa asterisk-sounds-en asterisk-sounds-ru asterisk-sounds-moh asterisk-odbc asterisk-curl asterisk-speex asterisk-sample-config asterisk-addons-mysql \
-&&  rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
+RUN apk add --update tzdata asterisk asterisk-alsa asterisk-sounds-en asterisk-sounds-moh asterisk-odbc asterisk-curl asterisk-speex asterisk-sample-config
+#RUN apk add mysql-connector-odbc asterisk-addons-mysql asterisk-sounds-ru psqlodbc
+RUN  rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
 RUN asterisk && sleep 5
 
