@@ -5,7 +5,7 @@ if [ "$1" = "" ]; then
   exec asterisk -vvvdddc
 else
 
-  cat <<EOF >> /etc/asterisk/res_config_pgsql.conf
+  cat <<EOF >> /etc/asterisk/res_pgsql.conf
 [$POSTGRES_DB]
 dbhost = $POSTGRES_HOST
 dbname = $POSTGRES_DB
