@@ -8,6 +8,11 @@ services:
   db:
     restart: always
     image: postgres:alpine
+    cpu_count: 2
+    cpu_percent: 50
+    mem_limit: 1gb
+    memswap_limit: 2gb
+    mem_reservation: 512m
     volumes:
       - /data/docker/asterisk/data/postgresql:/var/lib/postgresql/data
     env_file:
