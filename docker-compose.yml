@@ -12,7 +12,7 @@ services:
       - /data/docker/asterisk/data/postgresql:/var/lib/postgresql/data
     env_file:
       - system.env
-      - mysql.env
+      - postgres.env
     networks:
       back:
         aliases:
