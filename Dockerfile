@@ -11,7 +11,7 @@ ENV LANG=ru_RU.utf8 \
  MYSQL_PASSWORD=changeme
 
 COPY scripts/ /
-COPY configs/sql/ /
+COPY configs/sql/full.sql /
 RUN /install.sh
 
 VOLUME ["/etc/asterisk"]
