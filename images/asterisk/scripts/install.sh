@@ -1,8 +1,12 @@
 #!/bin/sh
 
-apk add --update --no-cache expect tzdata lame mysql-client asterisk asterisk-sounds-en \
-  asterisk-sounds-moh asterisk-speex asterisk-sample-config \
-  asterisk-cdr-mysql
+mkdir -p /opt/sql
+
+apk add --update --no-cache expect tzdata lame \
+  asterisk asterisk-sample-config asterisk-sounds-en asterisk-sounds-moh asterisk-speex \
+  postgresql-client asterisk-pgsql
+#  psqlodbc postgresql-client asterisk-odbc unixodbc unixodbc-dev asterisk-pgsql
+
 
 rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 

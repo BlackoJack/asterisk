@@ -5,43 +5,42 @@ if [ "$1" = "" ]; then
   exec asterisk -vvvdddc
 else
 
-  cat <<EOF >> /etc/asterisk/res_config_mysql.conf
-[$MYSQL_DATABASE]
-dbhost = $MYSQL_HOST
-dbname = $MYSQL_DATABASE
-dbuser = $MYSQL_USER
-dbpass = $MYSQL_PASSWORD
-dbport = 3306
-dbcharset = utf8
+  cat <<EOF >> /etc/asterisk/res_config_pgsql.conf
+[$POSTGRES_DB]
+dbhost = $POSTGRES_HOST
+dbname = $POSTGRES_DB
+dbuser = $POSTGRES_USER
+dbpass = $POSTGRES_PASSWORD
+dbport = 5432
 EOF
 
   cat <<EOF >> /etc/asterisk/extconfig.conf
-iaxusers => mysql,$MYSQL_DATABASE
-iaxpeers => mysql,$MYSQL_DATABASE
-sippeers => mysql,$MYSQL_DATABASE
-sipregs => mysql,$MYSQL_DATABASE
-ps_endpoints => mysql,$MYSQL_DATABASE
-ps_auths => mysql,$MYSQL_DATABASE
-ps_aors => mysql,$MYSQL_DATABASE
-ps_domain_aliases => mysql,$MYSQL_DATABASE
-ps_endpoint_id_ips => mysql,$MYSQL_DATABASE
-ps_outbound_publishes => mysql,$MYSQL_DATABASE
-ps_inbound_publications = mysql,$MYSQL_DATABASE
-ps_asterisk_publications = mysql,$MYSQL_DATABASE
-ps_transports => mysql,$MYSQL_DATABASE
-ps_registrations => mysql,$MYSQL_DATABASE
-ps_contacts => mysql,$MYSQL_DATABASE
-voicemail => mysql,$MYSQL_DATABASE
-extensions => mysql,$MYSQL_DATABASE
-meetme => mysql,$MYSQL_DATABASE
-queues => mysql,$MYSQL_DATABASE
-queue_members => mysql,$MYSQL_DATABASE
-queue_rules => mysql,$MYSQL_DATABASE
-acls => mysql,$MYSQL_DATABASE
-musiconhold => mysql,$MYSQL_DATABASE
-queue_log => mysql,$MYSQL_DATABASE
-followme => mysql,$MYSQL_DATABASE
-followme_numbers => mysql,$MYSQL_DATABASE
+iaxusers => pgsql,$POSTGRES_DB
+iaxpeers => pgsql,$POSTGRES_DB
+sippeers => pgsql,$POSTGRES_DB
+sipregs => pgsql,$POSTGRES_DB
+ps_endpoints => pgsql,$POSTGRES_DB
+ps_auths => pgsql,$POSTGRES_DB
+ps_aors => pgsql,$POSTGRES_DB
+ps_domain_aliases => pgsql,$POSTGRES_DB
+ps_endpoint_id_ips => pgsql,$POSTGRES_DB
+ps_outbound_publishes => pgsql,$POSTGRES_DB
+ps_inbound_publications = pgsql,$POSTGRES_DB
+ps_asterisk_publications = pgsql,$POSTGRES_DB
+ps_transports => pgsql,$POSTGRES_DB
+ps_registrations => pgsql,$POSTGRES_DB
+ps_contacts => pgsql,$POSTGRES_DB
+voicemail => pgsql,$POSTGRES_DB
+extensions => pgsql,$POSTGRES_DB
+meetme => pgsql,$POSTGRES_DB
+queues => pgsql,$POSTGRES_DB
+queue_members => pgsql,$POSTGRES_DB
+queue_rules => pgsql,$POSTGRES_DB
+acls => pgsql,$POSTGRES_DB
+musiconhold => pgsql,$POSTGRES_DB
+queue_log => pgsql,$POSTGRES_DB
+followme => pgsql,$POSTGRES_DB
+followme_numbers => pgsql,$POSTGRES_DB
 EOF
 
   cat <<EOF >> /etc/asterisk/sorcery.conf
@@ -68,9 +67,9 @@ EOF
   /usr/bin/expect<<EOF
     log_user 1
     set timeout 1000
-    spawn mysql -u$MYSQL_USER -p $MYSQL_DATABASE -h $MYSQL_HOST -e "source /full.sql;"
-    expect "Enter password:"
-    send "$MYSQL_PASSWORD\n"
+    spawn pgsql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_config.sql
+    expect "Enter password*"
+    send "$POSTGRES_PASSWORD\n"
     expect eof
 EOF
 

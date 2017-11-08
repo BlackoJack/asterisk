@@ -5,14 +5,15 @@ ENV LANG=ru_RU.utf8 \
  LC_ALL=ru_RU.utf8 \
  LANGUAGE=ru_RU.utf8 \
  TZ=Asia/Novosibirsk \
- MYSQL_HOST=asterisk_db \
- MYSQL_DATABASE=asterisk \
- MYSQL_USER=asterisk \
- MYSQL_PASSWORD=changeme
+ POSTGRES_HOST=asterisk_db \
+ POSTGRES_DB=asterisk \
+ POSTGRES_USER=asterisk \
+ POSTGRES_PASSWORD=changeme
 
 COPY scripts/ /
-COPY configs/sql/ /
 RUN /install.sh
+
+COPY configs/sql/ /opt/sql/
 
 VOLUME ["/etc/asterisk"]
 VOLUME ["/var/spool/asterisk"]
