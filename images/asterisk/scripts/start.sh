@@ -34,7 +34,6 @@ queue_members => pgsql,$POSTGRES_DB
 queue_rules => pgsql,$POSTGRES_DB
 acls => pgsql,$POSTGRES_DB
 musiconhold => pgsql,$POSTGRES_DB
-queue_log => pgsql,$POSTGRES_DB
 followme => pgsql,$POSTGRES_DB
 followme_numbers => pgsql,$POSTGRES_DB
 EOF
