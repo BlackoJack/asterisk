@@ -1,7 +1,7 @@
 #!/bin/sh
 
-apk add --update --no-cache tzdata lame mysql-client asterisk asterisk-sounds-en \
-  asterisk-sounds-moh asterisk-curl asterisk-speex asterisk-sample-config \
+apk add --update --no-cache expect tzdata lame mysql-client asterisk asterisk-sounds-en \
+  asterisk-sounds-moh asterisk-speex asterisk-sample-config \
   asterisk-cdr-mysql
 
 rm -rf /var/cache/apk/* /tmp/* /var/tmp/*

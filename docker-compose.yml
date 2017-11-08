@@ -1,0 +1,33 @@
+version: '2'
+
+networks:
+  back:
+    driver: bridge
+
+services:
+  db:
+    restart: always
+    image: blackojack:mysql
+    volumes:
+      - /data/docker/asterisk/data/mysql:/var/lib/mysql
+    env_file:
+      - system.env
+      - mysql.env
+    networks:
+      back:
+        aliases:
+          - asterisk_db
+  voip:
+    restart: always
+    image: blackojack/asterisk
+    ports:
+      - 5060:5060/udp
+      - 4569:4569/udp
+    depends_on:
+      - db
+    env_file:
+      - system.env
+      - mysql.env
+      - observium.env
+    networks:
+      - back

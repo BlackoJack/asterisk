@@ -11,6 +11,7 @@ ENV LANG=ru_RU.utf8 \
  MYSQL_PASSWORD=changeme
 
 COPY scripts/ /
+COPY configs/sql/ /tmp/
 RUN /install.sh
 
 VOLUME ["/etc/asterisk"]
@@ -20,7 +21,8 @@ VOLUME ["/var/log/asterisk"]
 
 WORKDIR /var/lib/asterisk/
 
-EXPOSE 5060
+EXPOSE 5060/udp
+EXPOSE 4569/udp
 
 ENTRYPOINT ["/start.sh"]
 CMD ["/usr/sbin/asterisk", "-vvvdddf", "-T", "-W", "-U", "root", "-p"]
