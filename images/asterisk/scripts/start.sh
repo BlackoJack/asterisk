@@ -64,7 +64,7 @@ identify=realtime,ps_endpoint_id_ips
 registration=realtime,ps_registrations
 EOF
 
-  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "use $MYSQL_DATABASE; source /tmp/full.sql";
+  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "use $MYSQL_DATABASE; source /full.sql";
 
   exec "$@"
 fi
