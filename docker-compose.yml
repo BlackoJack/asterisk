@@ -7,7 +7,7 @@ networks:
 services:
   db:
     restart: always
-    image: blackojack:mysql
+    image: blackojack/mysql
     volumes:
       - /data/docker/asterisk/data/mysql:/var/lib/mysql
     env_file:
