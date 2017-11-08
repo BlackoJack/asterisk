@@ -28,6 +28,6 @@ services:
     env_file:
       - system.env
       - mysql.env
-      - observium.env
+      - asterisk.env
     networks:
       - back
