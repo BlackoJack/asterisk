@@ -64,7 +64,15 @@ identify=realtime,ps_endpoint_id_ips
 registration=realtime,ps_registrations
 EOF
 
-  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "use $MYSQL_DATABASE; source /full.sql";
+  sleep 15
+  /usr/bin/expect<<EOF
+    log_user 1
+    set timeout 1000
+    spawn mysql -u$MYSQL_USER -p $MYSQL_DATABASE -h $MYSQL_HOST -e "source /full.sql;"
+    expect "Enter password:"
+    send "$MYSQL_PASSWORD\n"
+    expect eof
+EOF
 
   exec "$@"
 fi
