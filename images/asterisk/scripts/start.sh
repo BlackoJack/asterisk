@@ -5,14 +5,10 @@ if [ "$1" = "" ]; then
   exec asterisk -vvvdddc
 else
 
-  cat <<EOF >> /etc/asterisk/res_pgsql.conf
-[$POSTGRES_DB]
-dbhost = $POSTGRES_HOST
-dbname = $POSTGRES_DB
-dbuser = $POSTGRES_USER
-dbpass = $POSTGRES_PASSWORD
-dbport = 5432
-EOF
+  sed -i "s|dbhost=127.0.0.1|dbhost=$POSTGRES_HOST|" /etc/asterisk/res_pgsql.conf
+  sed -i "s|dbname=asterisk|dbname=$POSTGRES_DB|" /etc/asterisk/res_pgsql.conf
+  sed -i "s|dbuser=asterisk|dbuser=$POSTGRES_USER|" /etc/asterisk/res_pgsql.conf
+  sed -i "s|dbpass=password|dbpass=$POSTGRES_PASSWORD|" /etc/asterisk/res_pgsql.conf
 
   cat <<EOF >> /etc/asterisk/extconfig.conf
 iaxusers => pgsql,$POSTGRES_DB
