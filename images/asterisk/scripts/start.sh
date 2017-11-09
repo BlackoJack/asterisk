@@ -70,9 +70,21 @@ EOF
     spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_config.sql
     expect "Password for user $POSTGRES_USER:"
     send "$POSTGRES_PASSWORD\n"
+    expect eof
+EOF
+
+  /usr/bin/expect<<EOF
+    log_user 1
+    set timeout 1000
     spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_cdr.sql
     expect "Password for user $POSTGRES_USER:"
     send "$POSTGRES_PASSWORD\n"
+    expect eof
+EOF
+
+  /usr/bin/expect<<EOF
+    log_user 1
+    set timeout 1000
     spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_voicemail.sql
     expect "Password for user $POSTGRES_USER:"
     send "$POSTGRES_PASSWORD\n"
