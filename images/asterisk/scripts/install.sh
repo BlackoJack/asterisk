@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "1" > /var/lib/asterisk/installed.txt
+echo "0" > /var/lib/asterisk/installed.txt
 
 mkdir -p /opt/sql
 
