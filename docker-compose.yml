@@ -25,6 +25,11 @@ services:
   voip:
     restart: always
     image: blackojack/asterisk
+    cpu_count: 4
+    cpu_percent: 80
+    mem_limit: 1gb
+    memswap_limit: 2gb
+    mem_reservation: 512m
     ports:
       - 5060:5060/udp
       - 4569:4569/udp
