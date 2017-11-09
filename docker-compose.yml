@@ -26,8 +26,10 @@ services:
     image: adminer
     restart: always
     environment:
-      - ADMINER_PLUGINS=tables-filter tinymce enum-option enum-types login-servers login-table
+      - ADMINER_PLUGINS=tables-filter tinymce enum-option enum-types
       - ADMINER_DESIGN=nette
+    volumes:
+      - /data/docker/asterisk/data
     ports:
       - 8081:8080
     networks:
