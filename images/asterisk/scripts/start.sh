@@ -1,9 +1,8 @@
 #!/bin/sh
 
-if [ "$1" = "" ]; then
-  # This works if CMD is empty or not specified in Dockerfile
-  exec asterisk -vvvdddc
-else
+if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
+
+  echo "1" > /var/lib/asterisk/installed.txt
 
   sed -i "s|dbhost=127.0.0.1|dbhost=$POSTGRES_HOST|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbname=asterisk|dbname=$POSTGRES_DB|" /etc/asterisk/res_pgsql.conf
@@ -65,8 +64,21 @@ EOF
     spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_config.sql
     expect "Password for user $POSTGRES_USER:"
     send "$POSTGRES_PASSWORD\n"
+    spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_cdr.sql
+    expect "Password for user $POSTGRES_USER:"
+    send "$POSTGRES_PASSWORD\n"
+    spawn psql -U$POSTGRES_USER -W -d $POSTGRES_DB -h $POSTGRES_HOST -f /opt/sql/postgresql_voicemail.sql
+    expect "Password for user $POSTGRES_USER:"
+    send "$POSTGRES_PASSWORD\n"
     expect eof
 EOF
 
+fi
+
+
+if [ "$1" = "" ]; then
+  # This works if CMD is empty or not specified in Dockerfile
+  exec asterisk -vvvdddc
+else
   exec "$@"
 fi

@@ -1,12 +1,12 @@
 #!/bin/sh
 
+echo "1" > /var/lib/asterisk/installed.txt
+
 mkdir -p /opt/sql
 
 apk add --update --no-cache expect tzdata lame \
   asterisk asterisk-sample-config asterisk-sounds-en asterisk-sounds-moh asterisk-speex \
   postgresql-client asterisk-pgsql
-#  psqlodbc postgresql-client asterisk-odbc unixodbc unixodbc-dev asterisk-pgsql
-
 
 rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
