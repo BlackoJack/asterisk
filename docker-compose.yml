@@ -26,7 +26,7 @@ services:
     image: adminer
     restart: always
     environment:
-      - ADMINER_PLUGINS=tables-filter tinymce enum-option enum-types
+      - ADMINER_PLUGINS=tables-filter enum-option enum-types
       - ADMINER_DESIGN=nette
     volumes:
       - /data/docker/asterisk/data

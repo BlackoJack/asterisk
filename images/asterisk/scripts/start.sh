@@ -33,9 +33,10 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
 
   sed -i "s|;cache_record_files = yes	; Cache recorded sound files to another|cache_record_files = yes	; Cache recorded sound files to another|" /etc/asterisk/asterisk.conf
   sed -i "s|;record_cache_dir = /tmp	; Specify cache directory (used in conjunction|record_cache_dir = /tmp/asterisk	; Specify cache directory (used in conjunction|" /etc/asterisk/asterisk.conf
+  sed -i "s|;defaultlanguage = en|defaultlanguage = ru|" /etc/asterisk/asterisk.conf
 
   cat <<EOF >> /etc/asterisk/extconfig.conf
-iaxusers => pgsql,$POSTGRES_DB
+iaxfriends => pgsql,$POSTGRES_DB
 sippeers => pgsql,$POSTGRES_DB
 ps_endpoints => pgsql,$POSTGRES_DB
 ps_auths => pgsql,$POSTGRES_DB
@@ -48,17 +49,19 @@ ps_asterisk_publications = pgsql,$POSTGRES_DB
 ps_transports => pgsql,$POSTGRES_DB
 ps_registrations => pgsql,$POSTGRES_DB
 ps_contacts => pgsql,$POSTGRES_DB
+ps_globals => pgsql,$POSTGRES_DB
+ps_resource_list => pgsql,$POSTGRES_DB
+ps_subscription_persistence => pgsql,$POSTGRES_DB
+ps_systems => pgsql,$POSTGRES_DB
 voicemail => pgsql,$POSTGRES_DB
 extensions => pgsql,$POSTGRES_DB
 meetme => pgsql,$POSTGRES_DB
 queues => pgsql,$POSTGRES_DB
 queue_members => pgsql,$POSTGRES_DB
 queue_rules => pgsql,$POSTGRES_DB
-acls => pgsql,$POSTGRES_DB
 musiconhold => pgsql,$POSTGRES_DB
-followme => pgsql,$POSTGRES_DB
-followme_numbers => pgsql,$POSTGRES_DB
-extensions => pgsql,$POSTGRES_DB
+;followme => pgsql,$POSTGRES_DB
+;followme_numbers => pgsql,$POSTGRES_DB
 EOF
 
   cat <<EOF >> /etc/asterisk/sorcery.conf
@@ -89,6 +92,20 @@ clearglobalvars=no
 
 [default]
 switch => Realtime/@extensions
+EOF
+
+  cat <<EOF > /etc/asterisk/voicemail.conf
+[general]
+format=wav49|gsm|wav
+serveremail=asterisk
+attach=yes
+skipms=3000
+maxsilence=10
+silencethreshold=128
+maxlogins=3
+emaildateformat=%A, %B %d, %Y at %r
+pagerdateformat=%A, %B %d, %Y at %r
+sendvoicemail=yes
 EOF
 
   echo '' > /etc/asterisk/pjsip.conf
