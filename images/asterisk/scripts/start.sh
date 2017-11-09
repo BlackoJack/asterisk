@@ -9,6 +9,9 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
   sed -i "s|dbuser=asterisk|dbuser=$POSTGRES_USER|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbpass=password|dbpass=$POSTGRES_PASSWORD|" /etc/asterisk/res_pgsql.conf
 
+  sed -i "s|rtpstart=10000|rtpstart=16364|g" /etc/asterisk/rtp.conf
+  sed -i "s|rtpend=20000|rtpend=16394|g" /etc/asterisk/rtp.conf
+
   sed -i "s|;cache_record_files = yes	; Cache recorded sound files to another|cache_record_files = yes	; Cache recorded sound files to another|" /etc/asterisk/asterisk.conf
   sed -i "s|;record_cache_dir = /tmp	; Specify cache directory (used in conjunction|record_cache_dir = /tmp/asterisk	; Specify cache directory (used in conjunction|" /etc/asterisk/asterisk.conf
 
