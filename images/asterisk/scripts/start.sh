@@ -58,6 +58,7 @@ acls => pgsql,$POSTGRES_DB
 musiconhold => pgsql,$POSTGRES_DB
 followme => pgsql,$POSTGRES_DB
 followme_numbers => pgsql,$POSTGRES_DB
+extensions => pgsql,$POSTGRES_DB
 EOF
 
   cat <<EOF >> /etc/asterisk/sorcery.conf
@@ -79,6 +80,18 @@ identify=realtime,ps_endpoint_id_ips
 [res_pjsip_outbound_registration]
 registration=realtime,ps_registrations
 EOF
+
+  cat <<EOF > /etc/asterisk/extensions.conf
+[general]
+static=yes
+writeprotect=yes
+clearglobalvars=no
+
+[default]
+switch => Realtime/@extensions
+EOF
+
+  echo '' > /etc/asterisk/pjsip.conf
 
   sleep 15
   /usr/bin/expect<<EOF
