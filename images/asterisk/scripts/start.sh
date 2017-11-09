@@ -6,6 +6,13 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
 
   echo "preload => res_config_pgsql.so" >> /etc/asterisk/modules.conf
   echo "noload => chan_sip.so" >> /etc/asterisk/modules.conf
+  echo "noload => cel_pgsql.so" >> /etc/asterisk/modules.conf
+  echo "noload => cdr_csv.so" >> /etc/asterisk/modules.conf
+  echo "noload => cdr_custom.so" >> /etc/asterisk/modules.conf
+  echo "noload => cel_custom.so" >> /etc/asterisk/modules.conf
+  echo "noload => cel_manager.so" >> /etc/asterisk/modules.conf
+  echo "noload => res_phoneprov.so" >> /etc/asterisk/modules.conf
+  echo "noload => res_pjsip_phoneprov_provider.so" >> /etc/asterisk/modules.conf
 
   sed -i "s|dbhost=127.0.0.1|dbhost=$POSTGRES_HOST|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbname=asterisk|dbname=$POSTGRES_DB|" /etc/asterisk/res_pgsql.conf
