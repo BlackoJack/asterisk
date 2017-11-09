@@ -9,6 +9,15 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
   sed -i "s|dbuser=asterisk|dbuser=$POSTGRES_USER|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbpass=password|dbpass=$POSTGRES_PASSWORD|" /etc/asterisk/res_pgsql.conf
 
+  sed -i "s|;hostname=localhost|hostname=$POSTGRES_HOST|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;port=5432|port=5432|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;dbname=asterisk|dbname=$POSTGRES_DB|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;password=password|password=$POSTGRES_PASSWORD|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;user=postgres|user=$POSTGRES_USER|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;table=cdr		;SQL table where CDRs will be inserted|table=cdr		;SQL table where CDRs will be inserted|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;encoding=LATIN9	; Encoding of logged characters in Asterisk|encoding=UTF8	; Encoding of logged characters in Asterisk|" /etc/asterisk/cdr_pgsql.conf
+  sed -i "s|;timezone=UTC		; Uncomment if you want datetime fields in UTC/GMT|timezone=$TZ		; Uncomment if you want datetime fields in UTC/GMT|" /etc/asterisk/cdr_pgsql.conf
+
   sed -i "s|rtpstart=10000|rtpstart=16364|g" /etc/asterisk/rtp.conf
   sed -i "s|rtpend=20000|rtpend=16394|g" /etc/asterisk/rtp.conf
 
@@ -17,9 +26,7 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
 
   cat <<EOF >> /etc/asterisk/extconfig.conf
 iaxusers => pgsql,$POSTGRES_DB
-iaxpeers => pgsql,$POSTGRES_DB
 sippeers => pgsql,$POSTGRES_DB
-sipregs => pgsql,$POSTGRES_DB
 ps_endpoints => pgsql,$POSTGRES_DB
 ps_auths => pgsql,$POSTGRES_DB
 ps_aors => pgsql,$POSTGRES_DB

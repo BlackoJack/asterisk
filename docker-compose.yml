@@ -30,7 +30,6 @@ services:
     mem_limit: 1gb
     memswap_limit: 2gb
     mem_reservation: 512m
-    shm_size: 64M
     tmpfs: /tmp/asterisk
     ports:
       - 5060:5060/udp
