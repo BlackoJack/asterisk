@@ -22,6 +22,14 @@ services:
       back:
         aliases:
           - asterisk_db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8081
+    networks:
+      - back
+
   voip:
     restart: always
     image: blackojack/asterisk
