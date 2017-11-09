@@ -25,6 +25,8 @@ services:
   adminer:
     image: adminer
     restart: always
+    environment:
+      - ADMINER_DESIGN=nette
     ports:
       - 8081:8080
     networks:
