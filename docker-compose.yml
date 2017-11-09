@@ -26,7 +26,7 @@ services:
     image: adminer
     restart: always
     environment:
-      - ADMINER_PLUGINS=tables-filter tinymce enum-option enum-types
+      - ADMINER_PLUGINS=tables-filter tinymce enum-option enum-types login-servers login-table
       - ADMINER_DESIGN=nette
     ports:
       - 8081:8080
