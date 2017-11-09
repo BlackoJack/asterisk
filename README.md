@@ -11,7 +11,7 @@
 
 2. Скачиваем репозиторий:
 ```
-$ git clone https://github.com/BlackoJack/asterisk.git asterisk
+$ git clone https://github.com/BlackoJack/asterisk.git
 $ cd asterisk
 ```
 
