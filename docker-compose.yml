@@ -35,6 +35,7 @@ services:
     ports:
       - 5060:5060/udp
       - 4569:4569/udp
+      - 10000-20000:10000-20000/udp
     depends_on:
       - db
     env_file:

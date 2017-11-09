@@ -24,6 +24,7 @@ WORKDIR /var/lib/asterisk/
 
 EXPOSE 5060/udp
 EXPOSE 4569/udp
+EXPOSE 10000-20000/udp
 
 ENTRYPOINT ["/start.sh"]
 CMD ["/usr/sbin/asterisk", "-vvvdddf", "-T", "-W", "-U", "root", "-p"]
