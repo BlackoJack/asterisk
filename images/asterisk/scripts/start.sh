@@ -4,6 +4,9 @@ if [ "$(cat /var/lib/asterisk/installed.txt)" = 0 ]; then
 
   echo "1" > /var/lib/asterisk/installed.txt
 
+  echo "preload => res_config_pgsql.so" >> /etc/asterisk/modules.conf
+  echo "noload => chan_sip.so" >> /etc/asterisk/modules.conf
+
   sed -i "s|dbhost=127.0.0.1|dbhost=$POSTGRES_HOST|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbname=asterisk|dbname=$POSTGRES_DB|" /etc/asterisk/res_pgsql.conf
   sed -i "s|dbuser=asterisk|dbuser=$POSTGRES_USER|" /etc/asterisk/res_pgsql.conf
